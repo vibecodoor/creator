@@ -18,7 +18,7 @@ After a run, your project gets a **`devkit/`** folder (so the memory files don't
 - **`devkit/RESEARCH.md`** — the evidence base: competitor analysis, recommended stack (with confidence tags), architecture patterns, "don't hand-roll" list, risks, and key resources.
 - **`devkit/STATE.md`** — the live cursor: current task, next steps, blockers.
 
-Plus bundled `templates/` for `DECISIONS.md`, `JOURNAL.md`, and per-feature `specs/` — born **on demand**, never pre-created as empty stubs.
+Plus bundled `templates/` for `DECISIONS.md`, `JOURNAL.md`, and per-feature `specs/` — born **on demand**, never pre-created as empty stubs. A short pointer is also added to your root `CLAUDE.md` / `AGENTS.md` so a fresh agent session discovers the kit in `devkit/`.
 
 > These files follow the **[Project Memory Kit](https://github.com/vibecodoor/project-memory-kit)** layout. `creator` is the research-driven *bootstrapper* for that kit — it fills the templates from real research instead of leaving you a blank `PROJECT.md`. If you just want the kit itself (templates + protocol, no research step), use that repo directly.
 

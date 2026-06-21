@@ -113,6 +113,15 @@ Doctrine = **never pre-create empty stubs**. At init you have real content for e
 
 > If the user explicitly asked for a different init set (e.g. also seed `specs/mvp.md` with the ordered plan + acceptance criteria), follow that — but never lay down empty stubs. A spec is allowed at init **only** if you fill it from the research.
 
+### Wire up discovery
+
+A cold agent session auto-loads the project root's `CLAUDE.md` / `AGENTS.md` — it does **not** open `devkit/PROJECT.md` by name on its own. So after writing the `devkit/` files, make the kit discoverable: ensure the root `CLAUDE.md` **and** `AGENTS.md` each carry the Dev Memory pointer block below. **Idempotent** — create the file if absent, append the block if it's missing, and do nothing if a pointer to `devkit/` is already there (don't duplicate).
+
+```markdown
+## Dev Memory
+This project's dev memory lives in `devkit/`. At session start read `devkit/PROJECT.md` (the control plane) and follow its `## Dev Memory Protocol`. Other surfaces — STATE / DECISIONS / JOURNAL / specs — are in `devkit/` too.
+```
+
 ### `RESEARCH.md` schema
 
 Reference material — read once for decisions, then rarely revisited.

@@ -12,11 +12,11 @@ When you start a new project, you usually either dive in blind or drown in a wal
 
 ## What you get
 
-After a run, your project's working directory contains:
+After a run, your project gets a **`devkit/`** folder (so the memory files don't mix with your code/docs) containing:
 
-- **`PROJECT.md`** — the stable control plane: vision, scope, architecture, invariants, build plan, and an embedded **Dev Memory Protocol** that tells any agent how to maintain the kit.
-- **`RESEARCH.md`** — the evidence base: competitor analysis, recommended stack (with confidence tags), architecture patterns, "don't hand-roll" list, risks, and key resources.
-- **`STATE.md`** — the live cursor: current task, next steps, blockers.
+- **`devkit/PROJECT.md`** — the stable control plane: vision, scope, architecture, invariants, build plan, and an embedded **Dev Memory Protocol** that tells any agent how to maintain the kit.
+- **`devkit/RESEARCH.md`** — the evidence base: competitor analysis, recommended stack (with confidence tags), architecture patterns, "don't hand-roll" list, risks, and key resources.
+- **`devkit/STATE.md`** — the live cursor: current task, next steps, blockers.
 
 Plus bundled `templates/` for `DECISIONS.md`, `JOURNAL.md`, and per-feature `specs/` — born **on demand**, never pre-created as empty stubs.
 
@@ -55,7 +55,7 @@ Then start a new project and say *"create a new project: <your idea>"* — the s
 1. **Clarify** — targeted questions until what / who / problem / MVP scope / constraints are clear.
 2. **Plan the fan-out** — always Deep: 3 baseline research facets (competitors+market · stack+architecture · pitfalls+don't-hand-roll), plus up to 4 more for genuinely separable concerns.
 3. **Research** — parallel web agents verify stack choices against current docs (via Context7), tag every claim HIGH / MEDIUM / LOW, and return distilled summaries — no raw dumps.
-4. **Generate** — synthesize into `PROJECT.md` + `RESEARCH.md` + `STATE.md`, then point you at the concrete first build step.
+4. **Generate** — synthesize into `devkit/PROJECT.md` + `devkit/RESEARCH.md` + `devkit/STATE.md`, then point you at the concrete first build step.
 
 ## Folder structure
 

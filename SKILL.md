@@ -11,6 +11,8 @@ The goal is to give the user a clear, actionable foundation so they can start co
 
 Output is the **Dev Memory Kit** layout (a thin always-loaded control plane + on-demand surfaces), not an ad-hoc brief. Templates are bundled in `templates/` next to this skill. Core doctrine: **never pre-create empty stubs** — at init you emit only the surfaces that already have content; the rest are born on triggers (the protocol embedded in `PROJECT.md` governs that).
 
+**All kit files live in a `devkit/` folder at the project root** — `devkit/PROJECT.md`, `devkit/RESEARCH.md`, `devkit/STATE.md`, and (when their triggers fire) `devkit/DECISIONS.md`, `devkit/JOURNAL.md`, `devkit/specs/`. This keeps dev-memory files from mixing with the project's own code/docs. Create `devkit/` if it doesn't exist. All surfaces are colocated there, so the relative links inside the templates (`[STATE.md](STATE.md)`, `specs/…`) stay valid unchanged — do not rewrite them.
+
 ## 1. Clarify the Idea
 
 Before any research, make sure you understand what the user wants to build. Use askuserquestion tool to ask targeted follow-ups until you have:
@@ -97,17 +99,17 @@ Investigation, not confirmation: gather evidence first, form conclusions from ev
 
 ## 4. Generate the Dev Memory Kit files
 
-**You (the skill, in the main thread) do the synthesis yourself — do not spawn a separate synthesis agent.** Working from the agents' bounded summaries (step 3), merge **every** web-agent output — reconcile overlaps, drop duplicates, and surface any conflicts with their confidence tags (prefer HIGH/Context7 > MEDIUM > LOW; if still tied on a load-bearing choice, put it to the user) — then lay down the kit in the **current working directory** using the bundled templates in `templates/` (next to this skill). **Copy each template, then fill its `{{placeholders}}` from the research** — do not invent a structure, and do not leave placeholders unfilled.
+**You (the skill, in the main thread) do the synthesis yourself — do not spawn a separate synthesis agent.** Working from the agents' bounded summaries (step 3), merge **every** web-agent output — reconcile overlaps, drop duplicates, and surface any conflicts with their confidence tags (prefer HIGH/Context7 > MEDIUM > LOW; if still tied on a load-bearing choice, put it to the user) — then lay down the kit in the **`devkit/` folder at the project root** (create it if absent) using the bundled templates in `templates/` (next to this skill). **Copy each template, then fill its `{{placeholders}}` from the research** — do not invent a structure, and do not leave placeholders unfilled.
 
 ### What to emit at init (and only this)
 
-Doctrine = **never pre-create empty stubs**. At init you have real content for exactly three surfaces, so emit only these:
+Doctrine = **never pre-create empty stubs**. At init you have real content for exactly three surfaces, so emit only these (all inside `devkit/`):
 
-1. **`PROJECT.md`** ← `templates/PROJECT.md` — the control plane. Fill: Project Card, What This Is (vision), Core Value, User & Problem, Core Loop, Scope (Active = MVP features · Out of Scope = non-goals), Success Criteria, Architecture (modules/data flow), Invariants, **Plan** (ordered build steps), **Post-MVP**, **Launch Checklist**, and the inline **Decisions** digest (seed it with the 1-3 load-bearing choices from research). Leave the **Memory Map & Routing** table as-is (it's static boilerplate — only add a code-dir row if a path is genuinely non-obvious). Use **Canonical References** only for external links, if any. Keep the embedded **Dev Memory Protocol verbatim** — it is the project's self-bootstrapping manual.
-2. **`RESEARCH.md`** ← see schema below — the evidence base, read once for decisions then rarely revisited. Referenced from PROJECT.md's Canonical References.
-3. **`STATE.md`** ← `templates/STATE.md` — seed `## Now` with the concrete first build step and a `Recent:` line ("project initialized from research"), and `## Next` with steps 2-3 from the Plan. (Justified at init: the work spans sessions from day one.)
+1. **`devkit/PROJECT.md`** ← `templates/PROJECT.md` — the control plane. Fill: Project Card, What This Is (vision), Core Value, User & Problem, Core Loop, Scope (Active = MVP features · Out of Scope = non-goals), Success Criteria, Architecture (modules/data flow), Invariants, **Plan** (ordered build steps), **Post-MVP**, **Launch Checklist**, and the inline **Decisions** digest (seed it with the 1-3 load-bearing choices from research). Leave the **Memory Map & Routing** table as-is (it's static boilerplate — only add a code-dir row if a path is genuinely non-obvious). Use **Canonical References** only for external links, if any. Keep the embedded **Dev Memory Protocol verbatim** — it is the project's self-bootstrapping manual.
+2. **`devkit/RESEARCH.md`** ← see schema below — the evidence base, read once for decisions then rarely revisited. Referenced from PROJECT.md's Canonical References.
+3. **`devkit/STATE.md`** ← `templates/STATE.md` — seed `## Now` with the concrete first build step and a `Recent:` line ("project initialized from research"), and `## Next` with steps 2-3 from the Plan. (Justified at init: the work spans sessions from day one.)
 
-**Do NOT create** `DECISIONS.md`, `JOURNAL.md`, or any `specs/*.md` at init. They are born on their triggers (3rd recorded decision · first non-trivial problem · a feature that outlives one session). When a trigger fires, copy the matching file from `templates/` (`DECISIONS.md`, `JOURNAL.md`, `specs/_template.md`) — that is the canonical copy-source. The embedded protocol already tells the agent this; you are just honoring it at init.
+**Do NOT create** `devkit/DECISIONS.md`, `devkit/JOURNAL.md`, or any `devkit/specs/*.md` at init. They are born on their triggers (3rd recorded decision · first non-trivial problem · a feature that outlives one session). When a trigger fires, copy the matching file from `templates/` (`DECISIONS.md`, `JOURNAL.md`, `specs/_template.md`) into `devkit/` — that is the canonical copy-source. The embedded protocol already tells the agent this; you are just honoring it at init.
 
 > If the user explicitly asked for a different init set (e.g. also seed `specs/mvp.md` with the ordered plan + acceptance criteria), follow that — but never lay down empty stubs. A spec is allowed at init **only** if you fill it from the research.
 
@@ -146,4 +148,4 @@ Reference material — read once for decisions, then rarely revisited.
 
 ### After generating
 
-Give a brief summary of what was laid down (PROJECT.md + RESEARCH.md + STATE.md), explicitly note that DECISIONS/JOURNAL/specs are deferred until their triggers (so the user isn't surprised they're missing), and suggest the concrete first step to start building — which should match `STATE.md`'s `## Now`.
+Give a brief summary of what was laid down (`devkit/PROJECT.md` + `devkit/RESEARCH.md` + `devkit/STATE.md`), explicitly note that DECISIONS/JOURNAL/specs are deferred until their triggers (so the user isn't surprised they're missing), and suggest the concrete first step to start building — which should match `STATE.md`'s `## Now`.

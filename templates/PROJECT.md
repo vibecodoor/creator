@@ -178,6 +178,14 @@ STATE is a cursor, not truth. A *standing* contradiction is a bug → fix by edi
 
 **Hygiene** — supersede, don't append. If `PROJECT.md` outgrows ~150 lines, move content out (→ STATE / DECISIONS / specs / delete). Re-check staleness whenever you resume cold or onboard someone.
 
-**Update PROJECT.md when** — purpose/user changes · requirement validated/invalidated/cut · major architecture decision · source-of-truth changes · milestone done.
+**Autonomous upkeep** — the agent keeps these surfaces current as a normal part of doing the work, without waiting for a user command. Record a decision when it's made, journal a non-trivial problem when it's solved, advance STATE as the cursor moves, flip a spec AC `[ ]→[x]` when verified. Write on the event, not every turn (thrashing the files each turn is noise). Update PROJECT.md on: purpose/user change · requirement validated/invalidated/cut · major architecture decision · source-of-truth change · milestone done — a *structural* PROJECT.md rewrite is fine to make, but surface it in your reply so the owner sees it.
+
+**`end session` checkpoint** — when the user signals end of work ("end session", "конец сессии", "wrapping up", or equivalent), run a memory sweep before stopping:
+1. STATE — refresh `Now` / `Recent:` / `Next` / `Blockers` / `In flight` so a cold resume is cheap. (Born here if it doesn't exist yet and work spans sessions.)
+2. DECISIONS — append any decision made this session (file born on the 3rd decision).
+3. JOURNAL — append any non-trivial problem→fix→lesson (file born on the first one).
+4. specs — flip any verified AC `[ ]→[x]`.
+5. PROJECT.md — check staleness; update if a milestone/scope change landed.
+6. Report a ≤3-line summary of what was written where. Write nothing if nothing changed — an empty sweep is a valid outcome, not a reason to invent entries.
 
 **Working when** — sessions resume without re-explaining, decisions don't get re-litigated, and the context window stays mostly code, not memory overhead. If you're re-explaining the project each session, the kit is stale, not done.

@@ -44,6 +44,17 @@ This skill **always runs Deep Research — never scale down**. Every run spawns 
 
 **Ceiling: 7 web agents.** Between 4 and 7 the only rule is *non-overlap* — never spawn two agents that would research the same thing. State the planned count and each agent's facet to the user in one line before spawning (e.g. *"Deep: 4 web — 3 baseline + a payments-subsystem deep-dive"*). Proceed without a blocking question.
 
+**Agent model tier.** Give every spawned agent an explicit `model`, decided in this order:
+1. **STRONG → `opus`** if any holds: adversarial/contrarian review of a load-bearing recommendation; resolving conflicting evidence that decides go/no-go or the stack; security, auth, legal, or money-handling; architecture that is expensive to reverse.
+2. **FAST → `haiku`** only with positive evidence it is safe: bounded lookup/extraction with an obvious completion criterion.
+3. **BALANCED → `sonnet`** for everything else.
+
+Unsure between two tiers → the stronger one. Explicit user model choice wins. Forks inherit the parent model. `fable` only on explicit request. On hosts without per-agent model choice, skip this rule. Here that means:
+- the 3 baseline web facets → `sonnet`;
+- an extra facet that hits a STRONG trigger (privacy/legal/compliance, payments engine) → `opus`.
+
+Name the tier per agent in the one-line plan.
+
 ## 3. Research: Web + Docs
 
 Spawn the **general-purpose** web subagents chosen in step 2 (**3 or more**) **in parallel** — issue all Agent calls in a single message. Give **each** agent:
